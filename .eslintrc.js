@@ -31,7 +31,14 @@ module.exports = {
     camelcase: "off",
     "no-console": ["error", { allow: ["tron"] }],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["CustomLabel"],
+      "labelAttributes": ["inputLabel"],
+      "controlComponents": ["CustomInput"],
+      "assert": "both",
+      "depth": 3,
+    }],
   },
   settings: {
     "import/resolver": {

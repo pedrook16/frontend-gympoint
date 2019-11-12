@@ -9,9 +9,9 @@ import Sign from '~/pages/Sign';
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" component={Sign} />
+      <Route path="/" exact component={Sign} />
 
-      <Route path="/dashboard" exact component={Home} isPrivate />
+      <Route path="/dashboard" component={Home} isPrivate />
     </Switch>
   );
 }
