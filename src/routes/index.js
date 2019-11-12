@@ -7,11 +7,11 @@ import Home from '~/pages/Home';
 import Sign from '~/pages/Sign';
 
 export default function Routes() {
-    return (
-        <Switch>
-            <Route path="/" component={Sign} />
+  return (
+    <Switch>
+      <Route path="/" component={Sign} />
 
-            <Route path="/dashboard" exact component={Home} isPrivate />
-        </Switch>
-    );
+      <Route path="/dashboard" exact component={Home} isPrivate />
+    </Switch>
+  );
 }
