@@ -3,7 +3,7 @@ import { Switch } from 'react-router-dom';
 
 import Route from './Route';
 
-import Home from '~/pages/Home';
+import Student from '~/pages/Students';
 import Sign from '~/pages/Sign';
 
 export default function Routes() {
@@ -11,7 +11,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Sign} />
 
-      <Route path="/dashboard" component={Home} isPrivate />
+      <Route path="/dashboard" component={Student} isPrivate />
     </Switch>
   );
 }
