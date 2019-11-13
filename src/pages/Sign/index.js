@@ -2,10 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import logo from '~/assets/images/logo.png';
 
 import { signInRequest } from '~/store/modules/auth/actions';
-
-import { Container, Box, Logo } from './styles';
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -22,21 +21,19 @@ export default function Sign() {
     dispach(signInRequest(email, password));
   }
   return (
-    <Container>
-      <Box>
-        <Logo />
-        <Form schema={schema} onSubmit={handleSubmit}>
-          <label>SEU E-MAIL</label>
-          <Input type="email" name="email" placeholder="exemplo@email.com" />
+    <>
+<img src={logo} alt="logo" />
+      <Form schema={schema} onSubmit={handleSubmit}>
+        <label>SEU E-MAIL</label>
+        <Input type="email" name="email" placeholder="exemplo@email.com" />
 
-          <label>SUA SENHA</label>
-          <Input type="password" name="password" placeholder="*********" />
+        <label>SUA SENHA</label>
+        <Input type="password" name="password" placeholder="*********" />
 
-          <button type="submit">
-            {loading ? 'Carregando...' : 'Entrar no sistema'}
-          </button>
-        </Form>
-      </Box>
-    </Container>
+        <button type="submit">
+          {loading ? 'Carregando...' : 'Entrar no sistema'}
+        </button>
+      </Form>
+    </>
   );
 }

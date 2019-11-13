@@ -23,6 +23,10 @@ export default createGlobalStyle`
         font: 14px  Roboto, sans-serif;
     }
 
+    a {
+      text-decoration: none;
+    }
+
     button {
         cursor: pointer;
     }
