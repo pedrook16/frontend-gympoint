@@ -29,6 +29,7 @@ export const Content = styled.div`
       border-right: 1px solid #eee;
     }
     a {
+      cursor: pointer;
       font-size: 15px;
       color: #999;
       margin-left: 20px;

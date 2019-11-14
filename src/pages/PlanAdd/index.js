@@ -10,7 +10,7 @@ export default function RegisterStudents() {
   return (
     <>
       <div>
-        <h1>Cadastro de aluno</h1>
+        <h1>Cadastro de plano</h1>
         <div>
           <ReturnButton />
           <ButtonSave />
@@ -20,22 +20,20 @@ export default function RegisterStudents() {
         render={
           <Content>
             <form>
-              <label>NOME COMPLETO</label>
-              <input type="text" placeholder="Fulano dos Santos" />
-              <label>ENDEREÇO DE E-MAIL</label>
-              <input type="text" placeholder="email@gmail.com" />
+              <label>TÍTULO DO PLANO</label>
+              <input type="text" />
 
               <div>
                 <div>
-                  <label>IDADE</label>
+                  <label>DURAÇÃO (em meses)</label>
                   <input type="text" />
                 </div>
                 <div>
-                  <label>PESO (em kg)</label>
+                  <label>PREÇO MENSAL</label>
                   <input type="text" />
                 </div>
                 <div>
-                  <label>ALTURA</label>
+                  <label>PREÇO TOTAL</label>
                   <input type="text" />
                 </div>
               </div>

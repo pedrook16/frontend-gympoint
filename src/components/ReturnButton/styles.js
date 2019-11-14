@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.button`
   background: #999;
@@ -12,6 +13,10 @@ export const Container = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    background: ${darken(0.03, '#999')};
+  }
 
   svg {
     margin-right: 5px;

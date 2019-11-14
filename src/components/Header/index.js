@@ -21,10 +21,10 @@ export default function Header() {
         <nav>
           <img src={logo} alt="logo" />
 
-          <Link to="/">ALUNOS</Link>
-          <Link to="/">PLANOS</Link>
-          <Link to="/">MATRÍCULAS</Link>
-          <Link to="/">PEDIDOS DE AUXÍLIO</Link>
+          <Link to="/dashboard">ALUNOS</Link>
+          <Link to="/plan">PLANOS</Link>
+          <Link to="/enrollment">MATRÍCULAS</Link>
+          <Link to="/help">PEDIDOS DE AUXÍLIO</Link>
         </nav>
         <aside>
           <Logout>

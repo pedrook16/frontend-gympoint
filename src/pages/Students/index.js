@@ -3,7 +3,7 @@ import { MdEdit, MdDelete } from 'react-icons/md';
 
 import Button from '~/components/Button';
 import Box from '~/components/Box';
-import InputAddStudents from '~/components/InputAddStudents';
+import InputStudents from '~/components/InputAddStudents';
 
 import { Table } from './styles';
 
@@ -14,7 +14,7 @@ export default function Stutents() {
         <h1>Gerenciando alunos</h1>
         <div>
           <Button />
-          <InputAddStudents />
+          <InputStudents />
         </div>
       </div>
       <Box
