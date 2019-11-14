@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MdEdit, MdDelete } from 'react-icons/md';
+import { MdEdit, MdDelete, MdSearch } from 'react-icons/md';
+
+import api from '~/services/api';
 
 import Button from '~/components/Button';
 import Box from '~/components/Box';
-import InputStudents from '~/components/InputAddStudents';
 
-import { Table } from './styles';
+import { Table, Search } from './styles';
 
 export default function Stutents() {
+  const [students, setStudents] = useState([]);
+  const [studentValue, setStudentValue] = useState('');
+
+  useEffect(() => {
+    async function loadStudents() {
+      const response = await api.get('students', {
+        params: { q: studentValue },
+      });
+      setStudents(response.data);
+    }
+    loadStudents();
+  }, [studentValue]);
+
+  function handleDel(id) {
+    if (window.confirm('Deseja realmente deletar?')) {
+      console.tron.log(id);
+    }
+  }
+
   return (
     <>
       <div>
@@ -17,7 +37,15 @@ export default function Stutents() {
           <Link to="/register">
             <Button />
           </Link>
-          <InputStudents />
+          <Search>
+            <MdSearch size={20} color="#999" />
+            <input
+              onChange={e => setStudentValue(e.target.value)}
+              value={studentValue}
+              type="text"
+              placeholder="Buscar aluno"
+            />
+          </Search>
         </div>
       </div>
       <Box
@@ -32,42 +60,21 @@ export default function Stutents() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Pedro Henrique </td>
-                <td>pedro@gmail.com</td>
-                <td>23</td>
-                <td>
-                  <MdEdit size={20} color="#4d85ee" />
-                  <MdDelete size={20} color="#de3b3b" />
-                </td>
-              </tr>
-              <tr>
-                <td>Pedro</td>
-                <td>pedro@gmail.com</td>
-                <td>23</td>
-                <td>
-                  <MdEdit size={20} color="#4d85ee" />
-                  <MdDelete size={20} color="#de3b3b" />
-                </td>
-              </tr>
-              <tr>
-                <td>Pedro</td>
-                <td>pedro@gmail.com</td>
-                <td>23</td>
-                <td>
-                  <MdEdit size={20} color="#4d85ee" />
-                  <MdDelete size={20} color="#de3b3b" />
-                </td>
-              </tr>
-              <tr>
-                <td>Pedro</td>
-                <td>pedro@gmail.com</td>
-                <td>23</td>
-                <td>
-                  <MdEdit size={20} color="#4d85ee" />
-                  <MdDelete size={20} color="#de3b3b" />
-                </td>
-              </tr>
+              {students.map(student => (
+                <tr key={student.id}>
+                  <td>{student.name}</td>
+                  <td>{student.email}</td>
+                  <td>{student.age}</td>
+                  <td>
+                    <MdEdit size={20} color="#4d85ee" />
+                    <MdDelete
+                      size={20}
+                      color="#de3b3b"
+                      onClick={() => handleDel(student.id)}
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         }

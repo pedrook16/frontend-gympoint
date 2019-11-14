@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-export const Container = styled.button`
+export const Container = styled.button.attrs({
+  type: 'submit',
+})`
   background: #ee4d64;
   color: #fff;
   border: 0;

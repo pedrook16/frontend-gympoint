@@ -17,9 +17,9 @@ export const Table = styled.table`
   tbody {
     tr {
       height: 50px;
+      width: 100%;
 
       td {
-        width: 200px;
         font-size: 16px;
         color: #999;
         border-bottom: 1px solid #eee;

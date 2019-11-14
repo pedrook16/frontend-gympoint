@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete } from 'react-icons/md';
+
+import api from '~/services/api';
+import { formatPrice } from '~/util/format';
 
 import Box from '~/components/Box';
 import Button from '~/components/Button';
@@ -8,6 +11,20 @@ import Button from '~/components/Button';
 import { Table } from './styles';
 
 export default function Plan() {
+  const [plans, setPlans] = useState([]);
+
+  useEffect(() => {
+    async function loadPlans() {
+      const response = await api.get('plans');
+
+      const data = response.data.map(plan => ({
+        ...plan,
+        priceFormatted: formatPrice(plan.price),
+      }));
+      setPlans(data);
+    }
+    loadPlans();
+  }, []);
   return (
     <>
       <div>
@@ -30,33 +47,17 @@ export default function Plan() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Start</td>
-                <td>1 mês</td>
-                <td>R$129,00</td>
-                <td>
-                  <MdEdit size={20} color="#4d85ee" />
-                  <MdDelete size={20} color="#de3b3b" />
-                </td>
-              </tr>
-              <tr>
-                <td>Gold</td>
-                <td>3 meses</td>
-                <td>R$109,00</td>
-                <td>
-                  <MdEdit size={20} color="#4d85ee" />
-                  <MdDelete size={20} color="#de3b3b" />
-                </td>
-              </tr>
-              <tr>
-                <td>Diamond</td>
-                <td>6 meses</td>
-                <td>R$89,00</td>
-                <td>
-                  <MdEdit size={20} color="#4d85ee" />
-                  <MdDelete size={20} color="#de3b3b" />
-                </td>
-              </tr>
+              {plans.map(plan => (
+                <tr key={plan.id}>
+                  <td>{plan.title}</td>
+                  <td>{plan.duration} mês</td>
+                  <td>{plan.priceFormatted}</td>
+                  <td>
+                    <MdEdit size={20} color="#4d85ee" />
+                    <MdDelete size={20} color="#de3b3b" />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         }
