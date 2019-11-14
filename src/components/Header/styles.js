@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
   background: #fff;
@@ -12,12 +13,6 @@ export const Content = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  ${props =>
-    props.seleted &&
-    css`
-      color: #444;
-    `}
-
   nav {
     display: flex;
     align-items: center;
@@ -28,17 +23,24 @@ export const Content = styled.div`
       padding-right: 20px;
       border-right: 1px solid #eee;
     }
-    a {
-      cursor: pointer;
-      font-size: 15px;
-      color: #999;
-      margin-left: 20px;
-      font-weight: bold;
-    }
   }
   aside {
     display: flex;
     align-items: center;
+  }
+`;
+
+export const Navigate = styled(NavLink).attrs({
+  activeClassName: 'selected',
+})`
+  cursor: pointer;
+  font-size: 15px;
+  color: #999;
+  margin-left: 20px;
+  font-weight: bold;
+
+  &.selected {
+    color: #444;
   }
 `;
 

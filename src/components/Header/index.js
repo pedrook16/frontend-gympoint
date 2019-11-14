@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import logo from '~/assets/images/logo.png';
 
 import { signOut } from '~/store/modules/auth/actions';
 
-import { Container, Content, Logout } from './styles';
+import { Container, Content, Logout, Navigate } from './styles';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -21,10 +20,10 @@ export default function Header() {
         <nav>
           <img src={logo} alt="logo" />
 
-          <Link to="/dashboard">ALUNOS</Link>
-          <Link to="/plan">PLANOS</Link>
-          <Link to="/enrollment">MATRÍCULAS</Link>
-          <Link to="/help">PEDIDOS DE AUXÍLIO</Link>
+          <Navigate to="/dashboard">ALUNOS</Navigate>
+          <Navigate to="/plan">PLANOS</Navigate>
+          <Navigate to="/enrollment">MATRÍCULAS</Navigate>
+          <Navigate to="/help">PEDIDOS DE AUXÍLIO</Navigate>
         </nav>
         <aside>
           <Logout>
