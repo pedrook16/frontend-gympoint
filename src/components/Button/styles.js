@@ -14,7 +14,7 @@ export const Container = styled.button`
   align-items: center;
 
   &:hover {
-    background: ${darken(0.05, '#ee4d64')};
+    background: ${darken(0.03, '#ee4d64')};
   }
 
   svg {

@@ -27,6 +27,10 @@ export default createGlobalStyle`
       text-decoration: none;
     }
 
+    svg {
+      cursor: pointer;
+    }
+
     button {
         cursor: pointer;
     }
