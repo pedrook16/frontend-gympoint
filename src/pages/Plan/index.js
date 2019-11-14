@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
 import Box from '~/components/Box';
@@ -12,7 +13,9 @@ export default function Plan() {
       <div>
         <h1>Gerenciando planos</h1>
         <div>
-          <Button />
+          <Link to="/addplan">
+            <Button />
+          </Link>
         </div>
       </div>
       <Box

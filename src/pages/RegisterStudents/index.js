@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Box from '~/components/Box';
 import ButtonSave from '~/components/ButtonSave';
@@ -12,7 +13,9 @@ export default function RegisterStudents() {
       <div>
         <h1>Cadastro de aluno</h1>
         <div>
-          <ReturnButton />
+          <Link to="/dashboard">
+            <ReturnButton />
+          </Link>
           <ButtonSave />
         </div>
       </div>

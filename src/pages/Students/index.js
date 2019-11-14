@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
 import Button from '~/components/Button';
@@ -13,7 +14,9 @@ export default function Stutents() {
       <div>
         <h1>Gerenciando alunos</h1>
         <div>
-          <Button />
+          <Link to="/register">
+            <Button />
+          </Link>
           <InputStudents />
         </div>
       </div>
