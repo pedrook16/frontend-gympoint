@@ -3,9 +3,9 @@ import { MdChevronLeft } from 'react-icons/md';
 
 import { Container } from './styles';
 
-export default function ReturnButton() {
+export default function ReturnButton({ returnNavigate }) {
   return (
-    <Container>
+    <Container onClick={returnNavigate}>
       <MdChevronLeft size={20} color="#fff" />
       VOLTAR
     </Container>

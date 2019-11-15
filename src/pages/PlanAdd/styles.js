@@ -21,6 +21,11 @@ export const Content = styled.div`
       border: 1px solid #999;
       margin-bottom: 10px;
 
+      &.desabled {
+        background: #eee;
+        color: #444;
+      }
+
       ::placeholder {
         font-size: 16px;
         color: #999999;

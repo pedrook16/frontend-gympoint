@@ -37,11 +37,11 @@ export default function RegisterStudents() {
                 </div>
                 <div>
                   <label>DATA DE TÉRMINO</label>
-                  <input type="text" disabled />
+                  <input className="desabled" type="text" disabled />
                 </div>
                 <div>
                   <label>VALOR FINAL</label>
-                  <input type="text" disabled />
+                  <input className="desabled" type="text" disabled />
                 </div>
               </div>
             </form>

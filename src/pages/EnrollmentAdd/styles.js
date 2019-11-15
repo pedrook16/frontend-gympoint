@@ -20,6 +20,11 @@ export const Content = styled.div`
       border-radius: 4px;
       border: 1px solid #999;
       margin-bottom: 10px;
+
+      &.desabled {
+        background: #eee;
+        color: #444;
+      }
     }
 
     div {
