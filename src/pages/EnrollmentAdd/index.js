@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { addMonths, format, parseISO } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import DatePicker from 'react-datepicker';
-
-import 'react-datepicker/dist/react-datepicker.css';
-import { toast } from 'react-toastify';
 import Select from 'react-select';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@rocketseat/unform';
 import { formatPrice } from '~/util/format';
-
 import api from '~/services/api';
-
 import history from '~/services/history';
 
 import Box from '~/components/Box';
@@ -28,11 +23,7 @@ export default function RegisterStudents() {
   useEffect(() => {
     async function loadStudents() {
       const response = await api.get('students');
-      const options = response.data.map(student => ({
-        value: student.id,
-        label: student.name,
-      }));
-      setStudents(options);
+      setStudents(response.data);
     }
     loadStudents();
   }, []);
@@ -40,25 +31,11 @@ export default function RegisterStudents() {
   useEffect(() => {
     async function loadPlans() {
       const response = await api.get('plans');
-      const options = response.data.map(plan => ({
-        value: plan.id,
-        label: plan.title,
-      }));
-      setPlans(options);
+      setPlans(response.data);
     }
     loadPlans();
   }, []);
 
-  // useEffect(() => {
-  //   async function loadPlansId() {
-  //     const response = await api.get('plans');
-  //     console.tron.log(response.data);
-  //     setPlans();
-  //   }
-  //   loadPlansId();
-  // }, []);
-
-  // Memos
   const endDate = useMemo(() => {
     if (!startDate || !selectedPlan) return '';
     return format(addMonths(startDate, selectedPlan.duration), 'dd/MM/yyyy');
@@ -69,13 +46,17 @@ export default function RegisterStudents() {
     return formatPrice(selectedPlan.duration * selectedPlan.price);
   }, [selectedPlan]);
 
-  function handleSubmit(data) {
-    const newData = {
-      ...data,
-      // 2019-10-22T12:00:00-03:00
-      start_date: format(data.start_date, "yyyy-MM-dd'T'00:00:00XXX"),
-    };
-    console.tron.log(newData);
+  function handleSubmit() {
+    // const newData = {
+    //   ...data,
+    //   // 2019-10-22T12:00:00-03:00
+    //   // start_date: format(data.start_date, "yyyy-MM-dd'T'00:00:00XXX"),
+    // };
+    console.tron.log({
+      plan_id: selectedPlan.id,
+      student_id: selectedStudent.id,
+      start_date: format(startDate, "yyyy-MM-dd'T'00:00:00XXX"),
+    });
   }
   return (
     <>
@@ -93,22 +74,26 @@ export default function RegisterStudents() {
             <Form id="enrollment-submit" onSubmit={handleSubmit}>
               <label>ALUNO</label>
               <Select
+                name="student_id"
+                placeholder="Buscar aluno"
                 options={students}
+                getOptionLabel={item => item.name}
                 classNamePrefix="react-select"
                 onChange={value => setSelectedStudent(value)}
-                value={selectedPlan}
-                name="student_id"
+                value={selectedStudent}
               />
 
               <section>
                 <article>
                   <label>PLANO</label>
                   <Select
+                    name="plan_id"
                     options={plans}
                     classNamePrefix="react-select"
                     onChange={value => setSelectedPlan(value)}
-                    value={selectedStudent}
-                    name="plan_id"
+                    value={selectedPlan}
+                    placeholder="Selecione o plano"
+                    getOptionLabel={item => item.title}
                   />
                 </article>
                 <article>
@@ -122,7 +107,7 @@ export default function RegisterStudents() {
                 </article>
                 <article>
                   <label>DATA DE TÉRMINO</label>
-                  <Input
+                  <input
                     value={endDate}
                     className="desabled"
                     type="text"
@@ -132,7 +117,7 @@ export default function RegisterStudents() {
                 </article>
                 <article>
                   <label>VALOR FINAL</label>
-                  <Input
+                  <input
                     value={finalValue}
                     className="desabled"
                     type="text"
