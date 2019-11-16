@@ -52,14 +52,14 @@ export default function RegisterStudents() {
 
   return (
     <>
-      <div>
+      <header>
         <h1>Cadastro de plano</h1>
         <div>
           <ReturnButton returnNavigate={() => history.push('/plan')} />
 
           <ButtonSave formSubmit="plan-submit" />
         </div>
-      </div>
+      </header>
       <Box
         render={
           <Content>

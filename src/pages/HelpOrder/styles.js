@@ -3,6 +3,7 @@ import { darken } from 'polished';
 
 export const Table = styled.table`
   flex: 1;
+  width: 100%;
   thead {
     margin-bottom: 10px;
     tr {

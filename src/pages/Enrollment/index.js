@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdCheckCircle } from 'react-icons/md';
@@ -17,31 +17,33 @@ export default function Plan() {
   useEffect(() => {
     async function loadEnrollments() {
       const response = await api.get('enrollment');
-      // const data = response.data.map(enrollment => ({
-      //   ...enrollment,
-      //   // dateStartFormatted: format(
-      //   //   enrollment.start_date,
-      //   //   "d 'de' MMMM",
-      //   //   { locale: pt }
-      //   // ),
-      //   // dateEndFormatted: format(enrollment.end_date, "d 'de' MMMM", {
-      //   //   locale: pt,
-      //   // }),
-      // }));
-      setEnrollments(response.data);
+      const data = response.data.map(enrollment => ({
+        ...enrollment,
+        formattedStartDate: format(
+          parseISO(enrollment.start_date),
+          "d 'de' MMMM 'de' yyyy",
+          { locale: pt }
+        ),
+        formattedEndDate: format(
+          parseISO(enrollment.end_date),
+          "d 'de' MMMM 'de' yyyy",
+          { locale: pt }
+        ),
+      }));
+      setEnrollments(data);
     }
     loadEnrollments();
   }, []);
   return (
     <>
-      <div>
+      <header>
         <h1>Gerenciando matrículas</h1>
         <div>
           <Link to="/addenrollment">
             <Button />
           </Link>
         </div>
-      </div>
+      </header>
       <Box
         render={
           <Table>
@@ -60,8 +62,8 @@ export default function Plan() {
                 <tr key={enrollment.id}>
                   <td>{enrollment.student.name}</td>
                   <td>{enrollment.plan.title}</td>
-                  <td>{enrollment.start_date}</td>
-                  <td>{enrollment.end_date}</td>
+                  <td>{enrollment.formattedStartDate}</td>
+                  <td>{enrollment.formattedEndDate}</td>
                   <td>
                     <MdCheckCircle
                       size={20}

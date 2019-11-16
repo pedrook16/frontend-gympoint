@@ -18,7 +18,6 @@ export const Content = styled.div`
     input {
       padding: 15px 20px;
       border-radius: 4px;
-      border: 1px solid #999;
       margin-bottom: 10px;
 
       &.desabled {

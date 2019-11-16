@@ -31,7 +31,7 @@ export default function Stutents() {
 
   return (
     <>
-      <div>
+      <header>
         <h1>Gerenciando alunos</h1>
         <div>
           <Link to="/register">
@@ -47,7 +47,7 @@ export default function Stutents() {
             />
           </Search>
         </div>
-      </div>
+      </header>
       <Box
         render={
           <Table>

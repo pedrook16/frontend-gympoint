@@ -23,6 +23,10 @@ export default createGlobalStyle`
         font: 14px  Roboto, sans-serif;
     }
 
+    input {
+      border: 1px solid hsl(0, 0%, 80%);
+    }
+
     a {
       text-decoration: none;
       margin: 0;

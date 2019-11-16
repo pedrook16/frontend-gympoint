@@ -17,7 +17,6 @@ export const Content = styled.div`
   border-radius: 4px;
 
   img {
-    width: 100px;
     margin: 30px auto;
   }
 

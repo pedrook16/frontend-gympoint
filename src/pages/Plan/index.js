@@ -27,14 +27,14 @@ export default function Plan() {
   }, []);
   return (
     <>
-      <div>
+      <header>
         <h1>Gerenciando planos</h1>
         <div>
           <Link to="/addplan">
             <Button />
           </Link>
         </div>
-      </div>
+      </header>
       <Box
         render={
           <Table>

@@ -9,8 +9,12 @@ export const Content = styled.div`
   max-width: 900px;
   margin: 50px auto;
 
-  div {
+  header {
     display: flex;
     justify-content: space-between;
+
+    > div {
+      display: flex;
+    }
   }
 `;

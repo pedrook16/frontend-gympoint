@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import logo from '~/assets/images/logo.png';
+import logo from '~/assets/logo-red.svg';
 
 import { signOut } from '~/store/modules/auth/actions';
 

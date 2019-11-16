@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import logo from '~/assets/images/logo.png';
+import logo from '~/assets/logo.svg';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 
@@ -22,7 +22,7 @@ export default function Sign() {
   }
   return (
     <>
-<img src={logo} alt="logo" />
+      <img src={logo} alt="logo" />
       <Form schema={schema} onSubmit={handleSubmit}>
         <label>SEU E-MAIL</label>
         <Input type="email" name="email" placeholder="exemplo@email.com" />

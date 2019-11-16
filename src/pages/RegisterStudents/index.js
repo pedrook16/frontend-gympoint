@@ -1,8 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useEffect } from 'react';
+import Select from 'react-select';
 import { Form, Input } from '@rocketseat/unform';
 import InputMask from 'react-input-mask';
 import * as Yup from 'yup';
+
+import history from '~/services/history';
 
 import Box from '~/components/Box';
 import ButtonSave from '~/components/ButtonSave';
@@ -31,15 +33,14 @@ export default function RegisterStudents() {
 
   return (
     <>
-      <div>
+      <header>
         <h1>Cadastro de aluno</h1>
         <div>
-          <Link to="/dashboard">
-            <ReturnButton />
-          </Link>
+          <ReturnButton returnNavigate={() => history.push('/dashboard')} />
+
           <ButtonSave formSubmit="student-form" />
         </div>
-      </div>
+      </header>
       <Box
         render={
           <Content>
