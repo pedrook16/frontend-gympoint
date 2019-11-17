@@ -46,9 +46,9 @@ export const Search = styled.div`
 
   input {
     width: 100%;
+    height: 100%;
     padding: 2px 10px 2px 30px;
     border-radius: 4px;
-    border: 1px solid #eee;
 
     ::placeholder {
       color: #999;

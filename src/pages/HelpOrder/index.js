@@ -1,20 +1,43 @@
-import React, { useState } from 'react';
-import Modal from 'react-awesome-modal';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Textarea } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
+
+import api from '~/services/api';
 
 import Box from '~/components/Box';
 import ModalHelp from '~/components/ModalHelp';
 
-import { Table } from './styles';
+import { Table, Container } from './styles';
 
 export default function Plan() {
-  const [open, setOpen] = useState(false);
+  const [helps, setHelps] = useState([]);
+  const [respondItem, setRespondItem] = useState({});
 
-  function openModal() {
-    setOpen(true);
-  }
+  useEffect(() => {
+    async function loadHelp() {
+      const response = await api.get('help-orders');
+      setHelps(response.data);
+    }
+    loadHelp();
+  }, [respondItem]);
 
-  function closeModal() {
-    setOpen(false);
+  const onClose = useCallback(() => {
+    setRespondItem({});
+  }, []);
+
+  async function handleSubmit({ answer }) {
+    const { id } = respondItem;
+    const { name } = respondItem.student;
+
+    try {
+      await api.post(`/help-orders/${id}/answer`, {
+        answer,
+      });
+      toast.success(`Aluno ${name} respondido com sucesso.`);
+    } catch (err) {
+      toast.error(`Erro ao responder ${name}.`);
+    }
+    setRespondItem({});
   }
   return (
     <>
@@ -31,43 +54,40 @@ export default function Plan() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Lennert Nijenbijvank</td>
-                <td>
-                  <button type="button" onClick={openModal}>
-                    responder
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Lennert Nijenbijvank</td>
-                <td>
-                  <button type="button" onClick={openModal}>
-                    responder
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Lennert Nijenbijvank</td>
-                <td>
-                  <button type="button" onClick={openModal}>
-                    responder
-                  </button>
-                </td>
-              </tr>
+              {helps.map(help => (
+                <tr>
+                  <td>{help.student.name}</td>
+                  <td>
+                    <button type="button" onClick={() => setRespondItem(help)}>
+                      responder
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         }
       />
-      <Modal
-        visible={open}
+
+      <ModalHelp
+        visible={!!respondItem.id}
         width="450"
         height="425"
         effect="fadeInUp"
-        onClickAway={closeModal}
+        onClickAway={onClose}
       >
-        <ModalHelp />
-      </Modal>
+        <Container>
+          <div>
+            <strong>PERGUNTA DO ALUNO</strong>
+            <span>{respondItem.question}</span>
+          </div>
+          <Form onSubmit={handleSubmit}>
+            <label>SUA RESPOSTA</label>
+            <Textarea name="answer" cols="30" rows="10" />
+            <button type="submit">Responder aluno</button>
+          </Form>
+        </Container>
+      </ModalHelp>
     </>
   );
 }
