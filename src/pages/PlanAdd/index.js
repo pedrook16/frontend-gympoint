@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
-import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import api from '~/services/api';
 import history from '~/services/history';
 import { formatPrice } from '~/util/format';
 
@@ -11,11 +10,14 @@ import Box from '~/components/Box';
 import ButtonSave from '~/components/ButtonSave';
 import ReturnButton from '~/components/ReturnButton';
 
+import { addPlanRequest } from '~/store/modules/Plan/actions';
+
 import { Content } from './styles';
 
 export default function RegisterStudents() {
   const [durationCalc, setDuration] = useState(null);
   const [priceCalc, setPrice] = useState(null);
+  const dispach = useDispatch();
 
   const total = useMemo(() => durationCalc * priceCalc, [
     durationCalc,
@@ -36,18 +38,9 @@ export default function RegisterStudents() {
       .typeError('Preço inválido'),
   });
 
-  async function handleSubmit({ title, duration, price }, { resetForm }) {
-    try {
-      await api.post('plans', {
-        title,
-        duration,
-        price,
-      });
-      toast.success('Enviado com sucesso!');
-      resetForm();
-    } catch (err) {
-      toast.error('Erro no envio.');
-    }
+  async function handleSubmit(data, { resetForm }) {
+    dispach(addPlanRequest(data));
+    resetForm();
   }
 
   return (

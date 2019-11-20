@@ -1,4 +1,4 @@
-export function addStudentsRequest(data) {
+export function addPlanRequest(data) {
   return {
     type: '@plan/PLAN_ADD_REQUEST',
     payload: { data },
@@ -11,7 +11,7 @@ export function studentFailure() {
   };
 }
 
-export function updateStudentsRequest(data, id) {
+export function updatePlanRequest(data, id) {
   return {
     type: '@plan/PLAN_UPDATE_REQUEST',
     payload: { data, id },

@@ -34,7 +34,20 @@ export function* updateStudent({ payload }) {
   }
 }
 
+export function* deleteStudent({ payload }) {
+  try {
+    const { name, id } = payload;
+
+    yield call(api.delete, `students/${id}`);
+
+    toast.success(`Aluno ${name} deletado com sucesso`);
+  } catch (error) {
+    toast.error(error.response.data.error);
+  }
+}
+
 export default all([
   takeLatest('@student/STUDENT_ADD_REQUEST', addStudent),
   takeLatest('@student/STUDENT_UPDATE_REQUEST', updateStudent),
+  takeLatest('@student/STUDENT_DELETE_REQUEST', deleteStudent),
 ]);

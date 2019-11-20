@@ -4,14 +4,30 @@ import Select from 'react-select';
 
 import { useField } from '@rocketseat/unform';
 
-import { Container } from './styles';
+export default function InputSelect({ name, options, ...rest }) {
+  const ref = useRef();
+  const { registerField, fieldName } = useField(name);
 
-export default function InputSelect({
-  name,
-  label,
-  options,
-  multiple,
-  ...rest
-}) {
-  return <div />;
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: ref.current,
+      path: 'state.value',
+    });
+}, [ref.current, fieldName]); // eslint-disable-line
+
+  return (
+    <>
+      <Select name={fieldName} options={options} ref={ref} {...rest} />
+    </>
+  );
 }
+
+InputSelect.propTypes = {
+  name: PropTypes.string.isRequired,
+  options: PropTypes.array,
+};
+
+InputSelect.defaultProps = {
+  options: [],
+};

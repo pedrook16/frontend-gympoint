@@ -17,3 +17,10 @@ export function updateStudentsRequest(student, id) {
     payload: { student, id },
   };
 }
+
+export function deleteStudentsRequest(id, name) {
+  return {
+    type: '@student/STUDENT_DELETE_REQUEST',
+    payload: { id, name },
+  };
+}

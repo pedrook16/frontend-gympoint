@@ -8,7 +8,7 @@ export function* addPlan({ payload }) {
   try {
     const { data } = payload;
 
-    yield call(api.post, 'plan', {
+    yield call(api.post, 'plans', {
       ...data,
     });
 

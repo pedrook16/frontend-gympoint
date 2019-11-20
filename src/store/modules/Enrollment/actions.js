@@ -1,26 +1,20 @@
-export function addStudentsRequest(data) {
+export function addEnrollmentRequest({ studentId, planId, start_date }) {
   return {
-    type: '@plan/PLAN_ADD_REQUEST',
-    payload: { data },
+    type: '@enrollment/ENROLLMENT_ADD_REQUEST',
+    payload: { studentId, planId, start_date },
   };
 }
 
-export function studentFailure() {
+export function updateEnrollmentRequest(data, id) {
   return {
-    type: '@plan/PLAN_FAILURE',
-  };
-}
-
-export function updateStudentsRequest(data, id) {
-  return {
-    type: '@plan/PLAN_UPDATE_REQUEST',
+    type: '@enrollment/ENROLLMENT_UPDATE_REQUEST',
     payload: { data, id },
   };
 }
 
-export function deletePlanRequest(id) {
+export function deleteEnrollmentRequest(id) {
   return {
-    type: '@plan/PLAN_DEL_REQUEST',
+    type: '@enrollment/ENROLLMENT_DEL_REQUEST',
     payload: { id },
   };
 }

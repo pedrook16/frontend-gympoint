@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdSearch } from 'react-icons/md';
 
@@ -8,11 +9,14 @@ import history from '~/services/history';
 import Button from '~/components/Button';
 import Box from '~/components/Box';
 
+import { deleteStudentsRequest } from '~/store/modules/student/actions';
+
 import { Table, Search } from './styles';
 
 export default function Stutents() {
   const [students, setStudents] = useState([]);
   const [studentValue, setStudentValue] = useState('');
+  const dispach = useDispatch();
 
   useEffect(() => {
     async function loadStudents() {
@@ -28,9 +32,9 @@ export default function Stutents() {
     history.push(`/student/edit/${id}`);
   }
 
-  function handleDel(id) {
-    if (window.confirm('Deseja realmente deletar?')) {
-      console.tron.log(id);
+  function handleDel(id, name) {
+    if (window.confirm(`Deseja realmente deletar o aluno(a) ${name}?`)) {
+      dispach(deleteStudentsRequest(id, name));
     }
   }
 
@@ -79,7 +83,7 @@ export default function Stutents() {
                     <MdDelete
                       size={20}
                       color="#de3b3b"
-                      onClick={() => handleDel(student.id)}
+                      onClick={() => handleDel(student.id, student.name)}
                     />
                   </td>
                 </tr>

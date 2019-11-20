@@ -6,13 +6,15 @@ import history from '~/services/history';
 
 export function* addEnrollment({ payload }) {
   try {
-    const { data } = payload;
+    const { planId, studentId, start_date } = payload;
 
-    yield call(api.post, 'plan', {
-      ...data,
+    yield call(api.post, 'enrollment', {
+      student_id: planId.id,
+      plan_id: studentId.id,
+      start_date,
     });
 
-    toast.success('Plano cadastrado com sucesso');
+    toast.success('Matriculado com sucesso');
     history.push('/plan');
   } catch (error) {
     toast.error(error.response.data.error);
@@ -46,7 +48,7 @@ export function* delEnrollment({ payload }) {
 }
 
 export default all([
-  takeLatest('@plan/PLAN_ADD_REQUEST', addPlan),
-  takeLatest('@plan/PLAN_UPDATE_REQUEST', updatePlan),
-  takeLatest('@plan/PLAN_DEL_REQUEST', delPlan),
+  takeLatest('@enrollment/ENROLLMENT_ADD_REQUEST', addEnrollment),
+  // takeLatest('@plan/PLAN_UPDATE_REQUEST', updatePlan),
+  // takeLatest('@plan/PLAN_DEL_REQUEST', delPlan),
 ]);

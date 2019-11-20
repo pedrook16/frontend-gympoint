@@ -5,4 +5,6 @@ export const Container = styled.div`
   width: 100%;
   background: #fff;
   padding: 20px;
+  border: 0;
+  border-radius: 4px;
 `;
