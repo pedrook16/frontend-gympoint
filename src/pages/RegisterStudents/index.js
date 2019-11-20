@@ -1,14 +1,20 @@
-import React, { useRef, useEffect } from 'react';
-import Select from 'react-select';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
-import InputMask from 'react-input-mask';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 
 import history from '~/services/history';
+import api from '~/services/api';
 
 import Box from '~/components/Box';
 import ButtonSave from '~/components/ButtonSave';
 import ReturnButton from '~/components/ReturnButton';
+
+import {
+  addStudentsRequest,
+  updateStudentsRequest,
+} from '~/store/modules/student/actions';
 
 import { Content } from './styles';
 
@@ -26,9 +32,26 @@ const schema = Yup.object().shape({
   height: Yup.number().required('Insira a altura'),
 });
 
-export default function RegisterStudents() {
+export default function RegisterStudents({ match }) {
+  const [student, setStudent] = useState(null);
+  const dispach = useDispatch();
+
+  const { id } = match.params;
+
+  useEffect(() => {
+    async function loadStudentId() {
+      const response = await api.get(`students/${id}`);
+      setStudent(response.data);
+    }
+    loadStudentId();
+  }, [id]);
+
   function handleSubmit(data) {
-    console.tron.log(data);
+    if (!id) {
+      dispach(addStudentsRequest(data));
+    } else {
+      dispach(updateStudentsRequest(data, id));
+    }
   }
 
   return (
@@ -36,7 +59,7 @@ export default function RegisterStudents() {
       <header>
         <h1>Cadastro de aluno</h1>
         <div>
-          <ReturnButton returnNavigate={() => history.push('/dashboard')} />
+          <ReturnButton returnNavigate={() => history.push('/student')} />
 
           <ButtonSave formSubmit="student-form" />
         </div>
@@ -44,7 +67,12 @@ export default function RegisterStudents() {
       <Box
         render={
           <Content>
-            <Form id="student-form" schema={schema} onSubmit={handleSubmit}>
+            <Form
+              id="student-form"
+              schema={schema}
+              onSubmit={handleSubmit}
+              initialData={student}
+            >
               <label>NOME COMPLETO</label>
               <Input name="name" type="text" placeholder="Fulano dos Santos" />
               <label>ENDEREÇO DE E-MAIL</label>
@@ -53,15 +81,15 @@ export default function RegisterStudents() {
               <div>
                 <div>
                   <label>IDADE</label>
-                  <Input name="age" type="text" />
+                  <Input name="age" type="type" />
                 </div>
                 <div>
                   <label>PESO (em kg)</label>
-                  <InputMask mask="" name="weight" type="text" />
+                  <Input name="weight" type="type" />
                 </div>
                 <div>
                   <label>ALTURA</label>
-                  <InputMask mask="" name="height" type="text" />
+                  <Input name="height" type="type" />
                 </div>
               </div>
             </Form>
@@ -71,3 +99,19 @@ export default function RegisterStudents() {
     </>
   );
 }
+
+RegisterStudents.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
+
+RegisterStudents.defaultProps = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: null,
+    }),
+  }),
+};

@@ -20,7 +20,7 @@ export default function Header() {
         <nav>
           <img src={logo} alt="logo" />
 
-          <Navigate to="/dashboard">ALUNOS</Navigate>
+          <Navigate to="/student">ALUNOS</Navigate>
           <Navigate to="/plan">PLANOS</Navigate>
           <Navigate to="/enrollment">MATRÍCULAS</Navigate>
           <Navigate to="/help">PEDIDOS DE AUXÍLIO</Navigate>

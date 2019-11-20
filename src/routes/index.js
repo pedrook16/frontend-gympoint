@@ -17,10 +17,22 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Sign} />
 
-      <Route path="/dashboard" component={Student} isPrivate />
-      <Route path="/register" component={RegisterStudent} isPrivate />
-      <Route path="/plan" component={Plan} isPrivate />
-      <Route path="/addplan" component={PlanAdd} isPrivate />
+      <Route path="/student" exact component={Student} isPrivate />
+      <Route
+        path="/student/create"
+        exact
+        component={RegisterStudent}
+        isPrivate
+      />
+      <Route
+        path="/student/edit/:id"
+        exact
+        component={RegisterStudent}
+        isPrivate
+      />
+      <Route path="/plan" exact component={Plan} isPrivate />
+      <Route path="/plan/create" exact component={PlanAdd} isPrivate />
+      <Route path="/plan/edit/:id" exact component={PlanAdd} isPrivate />
       <Route path="/enrollment" component={Enrollment} isPrivate />
       <Route path="/addenrollment" component={EnrollmentAdd} isPrivate />
       <Route path="/help" component={HelpOrder} isPrivate />

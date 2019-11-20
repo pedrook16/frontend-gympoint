@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdSearch } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import Button from '~/components/Button';
 import Box from '~/components/Box';
@@ -23,6 +24,10 @@ export default function Stutents() {
     loadStudents();
   }, [studentValue]);
 
+  function handleRedirectEdit(id) {
+    history.push(`/student/edit/${id}`);
+  }
+
   function handleDel(id) {
     if (window.confirm('Deseja realmente deletar?')) {
       console.tron.log(id);
@@ -34,7 +39,7 @@ export default function Stutents() {
       <header>
         <h1>Gerenciando alunos</h1>
         <div>
-          <Link to="/register">
+          <Link to="/student/create">
             <Button />
           </Link>
           <Search>
@@ -66,7 +71,11 @@ export default function Stutents() {
                   <td>{student.email}</td>
                   <td>{student.age}</td>
                   <td>
-                    <MdEdit size={20} color="#4d85ee" />
+                    <MdEdit
+                      size={20}
+                      color="#4d85ee"
+                      onClick={() => handleRedirectEdit(student.id)}
+                    />
                     <MdDelete
                       size={20}
                       color="#de3b3b"
