@@ -9,7 +9,10 @@ import history from '~/services/history';
 import Button from '~/components/Button';
 import Box from '~/components/Box';
 
-import { deleteStudentsRequest } from '~/store/modules/student/actions';
+import {
+  deleteStudentsRequest,
+  getIdStudentsRequest,
+} from '~/store/modules/student/actions';
 
 import { Table, Search } from './styles';
 
@@ -29,7 +32,7 @@ export default function Stutents() {
   }, [studentValue]);
 
   function handleRedirectEdit(id) {
-    history.push(`/student/edit/${id}`);
+    dispach(getIdStudentsRequest(id));
   }
 
   function handleDel(id, name) {

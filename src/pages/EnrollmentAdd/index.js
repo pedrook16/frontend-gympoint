@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { addMonths, format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import { Form } from '@rocketseat/unform';
-import * as Yup from 'yup';
 
 import { formatPrice } from '~/util/format';
 
@@ -19,7 +18,7 @@ import { addEnrollmentRequest } from '~/store/modules/Enrollment/actions';
 
 import { Content } from './styles';
 
-export default function RegisterStudents() {
+export default function RegisterStudents({ match }) {
   const [plans, setPlans] = useState([]);
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -53,19 +52,17 @@ export default function RegisterStudents() {
     return formatPrice(selectedPlan.duration * selectedPlan.price);
   }, [selectedPlan]);
 
-  function handleSubmit(data, { resetForm }) {
+  function handleSubmit({ studentId, planId }) {
     const newData = {
-      ...data,
+      studentId,
+      planId,
       start_date: format(startDate, "yyyy-MM-dd'T'00:00:00XXX"),
     };
     dispach(addEnrollmentRequest(newData));
-    resetForm();
+    setSelectedStudent(null);
+    setSelectedPlan(null);
+    setStartDate(null);
   }
-
-  const schema = Yup.object().shape({
-    studentId: Yup.number('Selecione um aluno').required('Campo obrigatório'),
-    planId: Yup.number().required('Campo obrigatório'),
-  });
 
   return (
     <>
@@ -80,11 +77,7 @@ export default function RegisterStudents() {
       <Box
         render={
           <Content>
-            <Form
-              id="enrollment-submit"
-              onSubmit={handleSubmit}
-              schema={schema}
-            >
+            <Form id="enrollment-submit" onSubmit={handleSubmit}>
               <label>ALUNO</label>
               <InputSelect
                 name="studentId"

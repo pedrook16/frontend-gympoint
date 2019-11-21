@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
 import history from '~/services/history';
-import api from '~/services/api';
 
 import Box from '~/components/Box';
 import ButtonSave from '~/components/ButtonSave';
@@ -33,18 +32,10 @@ const schema = Yup.object().shape({
 });
 
 export default function RegisterStudents({ match }) {
-  const [student, setStudent] = useState(null);
   const dispach = useDispatch();
+  const student = useSelector(state => state.student.student);
 
   const { id } = match.params;
-
-  useEffect(() => {
-    async function loadStudentId() {
-      const response = await api.get(`students/${id}`);
-      setStudent(response.data);
-    }
-    loadStudentId();
-  }, [id]);
 
   function handleSubmit(data) {
     if (!id) {
@@ -53,7 +44,6 @@ export default function RegisterStudents({ match }) {
       dispach(updateStudentsRequest(data, id));
     }
   }
-
   return (
     <>
       <header>
@@ -71,7 +61,7 @@ export default function RegisterStudents({ match }) {
               id="student-form"
               schema={schema}
               onSubmit={handleSubmit}
-              initialData={student}
+              initialData={id ? student : ''}
             >
               <label>NOME COMPLETO</label>
               <Input name="name" type="text" placeholder="Fulano dos Santos" />

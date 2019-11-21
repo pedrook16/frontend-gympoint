@@ -1,8 +1,19 @@
-import { takeLatest, call, all } from 'redux-saga/effects';
+import { takeLatest, call, all, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
+
+import { getIdStudentsSuccess } from './actions';
+
+export function* getByIdStudent({ payload }) {
+  const { id } = payload;
+
+  const response = yield call(api.get, `students/${id}`);
+
+  yield put(getIdStudentsSuccess(response.data));
+  history.push(`/student/edit/${id}`);
+}
 
 export function* addStudent({ payload }) {
   try {
@@ -47,6 +58,7 @@ export function* deleteStudent({ payload }) {
 }
 
 export default all([
+  takeLatest('@student/STUDENT_GET_REQUEST', getByIdStudent),
   takeLatest('@student/STUDENT_ADD_REQUEST', addStudent),
   takeLatest('@student/STUDENT_UPDATE_REQUEST', updateStudent),
   takeLatest('@student/STUDENT_DELETE_REQUEST', deleteStudent),

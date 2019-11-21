@@ -1,3 +1,17 @@
+export function getIdStudentsRequest(id) {
+  return {
+    type: '@student/STUDENT_GET_REQUEST',
+    payload: { id },
+  };
+}
+
+export function getIdStudentsSuccess(data) {
+  return {
+    type: '@student/STUDENT_GET_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function addStudentsRequest(data) {
   return {
     type: '@student/STUDENT_ADD_REQUEST',

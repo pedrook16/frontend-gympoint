@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdCheckCircle } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import Box from '~/components/Box';
 import Button from '~/components/Button';
+
+import { deleteEnrollmentRequest } from '~/store/modules/Enrollment/actions';
 
 import { Table } from './styles';
 
 export default function Plan() {
   const [enrollments, setEnrollments] = useState([]);
+  const dispach = useDispatch();
 
   useEffect(() => {
     async function loadEnrollments() {
@@ -34,12 +39,23 @@ export default function Plan() {
     }
     loadEnrollments();
   }, []);
+
+  function handleUpdateEnrollment(id) {
+    history.push(`/enrollment/edit/${id}`);
+  }
+
+  function handleDeleteEnrollment(id) {
+    if (window.confirm('Deseja realmente deletar a matrícula?')) {
+      dispach(deleteEnrollmentRequest(id));
+    }
+  }
+
   return (
     <>
       <header>
         <h1>Gerenciando matrículas</h1>
         <div>
-          <Link to="/addenrollment">
+          <Link to="/enrollment/create">
             <Button />
           </Link>
         </div>
@@ -71,8 +87,16 @@ export default function Plan() {
                     />
                   </td>
                   <td>
-                    <MdEdit size={20} color="#4d85ee" />
-                    <MdDelete size={20} color="#de3b3b" />
+                    <MdEdit
+                      size={20}
+                      color="#4d85ee"
+                      onClick={() => handleUpdateEnrollment(enrollment.id)}
+                    />
+                    <MdDelete
+                      size={20}
+                      color="#de3b3b"
+                      onClick={() => handleDeleteEnrollment(enrollment.id)}
+                    />
                   </td>
                 </tr>
               ))}

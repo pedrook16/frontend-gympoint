@@ -9,13 +9,13 @@ export function* addEnrollment({ payload }) {
     const { planId, studentId, start_date } = payload;
 
     yield call(api.post, 'enrollment', {
-      student_id: planId.id,
-      plan_id: studentId.id,
+      student_id: studentId.id,
+      plan_id: planId.id,
       start_date,
     });
 
     toast.success('Matriculado com sucesso');
-    history.push('/plan');
+    history.push('/enrollment');
   } catch (error) {
     toast.error(error.response.data.error);
   }
@@ -25,12 +25,12 @@ export function* updateEnrollment({ payload }) {
   try {
     const { data, id } = payload;
 
-    yield call(api.put, `plan/${id}`, {
+    yield call(api.put, `enrollment/${id}`, {
       ...data,
     });
 
-    toast.success('Plano editado com sucesso');
-    history.push('/plan');
+    toast.success('Matrícula editada com sucesso');
+    history.push('/enrollment');
   } catch (error) {
     toast.error(error.response.data.error);
   }
@@ -38,10 +38,10 @@ export function* updateEnrollment({ payload }) {
 
 export function* delEnrollment({ payload }) {
   try {
-    const { id, title } = payload;
+    const { id } = payload;
 
-    yield call(api.delete, `plans/${id}`);
-    toast.success(`Plano ${title} apagado com sucesso.`);
+    yield call(api.delete, `enrollment/${id}`);
+    toast.success(`Matrícula delatada com sucesso.`);
   } catch (err) {
     toast.error(err.response.data.error);
   }
@@ -50,5 +50,5 @@ export function* delEnrollment({ payload }) {
 export default all([
   takeLatest('@enrollment/ENROLLMENT_ADD_REQUEST', addEnrollment),
   // takeLatest('@plan/PLAN_UPDATE_REQUEST', updatePlan),
-  // takeLatest('@plan/PLAN_DEL_REQUEST', delPlan),
+  takeLatest('@enrollment/ENROLLMENT_DEL_REQUEST', delEnrollment),
 ]);
