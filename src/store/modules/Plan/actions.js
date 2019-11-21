@@ -1,3 +1,17 @@
+export function getByPlanRequest(id) {
+  return {
+    type: '@plan/PLAN_GET_REQUEST',
+    payload: { id },
+  };
+}
+
+export function getByPlanSuccess(data) {
+  return {
+    type: '@plan/PLAN_GET_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function addPlanRequest(data) {
   return {
     type: '@plan/PLAN_ADD_REQUEST',
@@ -11,10 +25,10 @@ export function studentFailure() {
   };
 }
 
-export function updatePlanRequest(data, id) {
+export function updatePlanRequest(plan, id) {
   return {
     type: '@plan/PLAN_UPDATE_REQUEST',
-    payload: { data, id },
+    payload: { plan, id },
   };
 }
 

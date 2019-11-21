@@ -1,8 +1,19 @@
-import { takeLatest, call, all } from 'redux-saga/effects';
+import { takeLatest, call, all, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
+
+import { getByPlanSuccess } from './actions';
+
+export function* getIdPlan({ payload }) {
+  const { id } = payload;
+
+  const response = yield call(api.get, `plans/${id}`);
+
+  yield put(getByPlanSuccess(response.data));
+  history.push(`/plan/edit/${id}`);
+}
 
 export function* addPlan({ payload }) {
   try {
@@ -21,10 +32,10 @@ export function* addPlan({ payload }) {
 
 export function* updatePlan({ payload }) {
   try {
-    const { data, id } = payload;
+    const { plan, id } = payload;
 
-    yield call(api.put, `plan/${id}`, {
-      ...data,
+    yield call(api.put, `plans/${id}`, {
+      ...plan,
     });
 
     toast.success('Plano editado com sucesso');
@@ -46,6 +57,7 @@ export function* delPlan({ payload }) {
 }
 
 export default all([
+  takeLatest('@plan/PLAN_GET_REQUEST', getIdPlan),
   takeLatest('@plan/PLAN_ADD_REQUEST', addPlan),
   takeLatest('@plan/PLAN_UPDATE_REQUEST', updatePlan),
   takeLatest('@plan/PLAN_DEL_REQUEST', delPlan),

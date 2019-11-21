@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useMemo, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
@@ -10,14 +11,31 @@ import Box from '~/components/Box';
 import ButtonSave from '~/components/ButtonSave';
 import ReturnButton from '~/components/ReturnButton';
 
-import { addPlanRequest } from '~/store/modules/Plan/actions';
+import {
+  addPlanRequest,
+  updatePlanRequest,
+} from '~/store/modules/Plan/actions';
 
 import { Content } from './styles';
 
-export default function RegisterStudents() {
+export default function RegisterStudents({ match }) {
   const [durationCalc, setDuration] = useState(null);
   const [priceCalc, setPrice] = useState(null);
   const dispach = useDispatch();
+  const plan = useSelector(state => state.plan.plan);
+
+  const { id } = match.params;
+
+  function planPriceAndDuration() {
+    setDuration(plan.duration);
+    setPrice(plan.price);
+  }
+
+  useEffect(() => {
+    if (id) {
+      planPriceAndDuration();
+    }
+  }, [id]); //eslint-disable-line
 
   const total = useMemo(() => durationCalc * priceCalc, [
     durationCalc,
@@ -39,7 +57,11 @@ export default function RegisterStudents() {
   });
 
   async function handleSubmit(data, { resetForm }) {
-    dispach(addPlanRequest(data));
+    if (!id) {
+      dispach(addPlanRequest(data));
+    } else {
+      dispach(updatePlanRequest(data, id));
+    }
     resetForm();
   }
 
@@ -56,7 +78,12 @@ export default function RegisterStudents() {
       <Box
         render={
           <Content>
-            <Form id="plan-submit" schema={schema} onSubmit={handleSubmit}>
+            <Form
+              id="plan-submit"
+              schema={schema}
+              onSubmit={handleSubmit}
+              initialData={id ? plan : ''}
+            >
               <label>TÍTULO DO PLANO</label>
               <Input name="title" type="text" placeholder="Gold" />
 
@@ -97,3 +124,19 @@ export default function RegisterStudents() {
     </>
   );
 }
+
+RegisterStudents.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
+
+RegisterStudents.defaultProps = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: null,
+    }),
+  }),
+};

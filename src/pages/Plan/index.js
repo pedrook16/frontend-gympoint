@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
-import history from '~/services/history';
 import api from '~/services/api';
 import { formatPrice } from '~/util/format';
 
-import { deletePlanRequest } from '~/store/modules/Plan/actions';
+import {
+  deletePlanRequest,
+  getByPlanRequest,
+} from '~/store/modules/Plan/actions';
 
 import Box from '~/components/Box';
 import Button from '~/components/Button';
@@ -32,7 +34,7 @@ export default function Plan() {
   }, []);
 
   function handleEditPlan(id) {
-    history.push(`/plan/edit/${id}`);
+    dispach(getByPlanRequest(id));
   }
 
   function handleDeletePlan(id, title) {

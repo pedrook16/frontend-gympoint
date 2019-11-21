@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdSearch } from 'react-icons/md';
 
 import api from '~/services/api';
-import history from '~/services/history';
 
 import Button from '~/components/Button';
 import Box from '~/components/Box';
@@ -20,6 +19,8 @@ export default function Stutents() {
   const [students, setStudents] = useState([]);
   const [studentValue, setStudentValue] = useState('');
   const dispach = useDispatch();
+  const plan = useSelector(state => state.plan);
+  console.tron.log(plan);
 
   useEffect(() => {
     async function loadStudents() {
