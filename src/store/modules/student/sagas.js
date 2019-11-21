@@ -32,10 +32,10 @@ export function* addStudent({ payload }) {
 
 export function* updateStudent({ payload }) {
   try {
-    const { data, id } = payload;
+    const { student, id } = payload;
 
     yield call(api.put, `students/${id}`, {
-      ...data,
+      ...student,
     });
 
     toast.success('Aluno editado com sucesso');
