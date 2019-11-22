@@ -1,8 +1,18 @@
-import { takeLatest, call, all } from 'redux-saga/effects';
+import { takeLatest, call, all, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
+
+import { getByEnrollmentSuccess } from './actions';
+
+export function* getByIdEnrollment({ payload }) {
+  const { id } = payload;
+
+  const response = yield call(api.get, `enrollment/${id}`);
+  yield put(getByEnrollmentSuccess(response.data));
+  history.push(`/enrollment/edit/${id}`);
+}
 
 export function* addEnrollment({ payload }) {
   try {
@@ -23,10 +33,12 @@ export function* addEnrollment({ payload }) {
 
 export function* updateEnrollment({ payload }) {
   try {
-    const { data, id } = payload;
+    const { planId, studentId, start_date, id } = payload;
 
     yield call(api.put, `enrollment/${id}`, {
-      ...data,
+      student_id: studentId.id,
+      plan_id: planId.id,
+      start_date,
     });
 
     toast.success('Matrícula editada com sucesso');
@@ -48,7 +60,8 @@ export function* delEnrollment({ payload }) {
 }
 
 export default all([
+  takeLatest('@enrollment/ENROLLMENT_GET_REQUEST', getByIdEnrollment),
   takeLatest('@enrollment/ENROLLMENT_ADD_REQUEST', addEnrollment),
-  // takeLatest('@plan/PLAN_UPDATE_REQUEST', updatePlan),
+  takeLatest('@enrollment/ENROLLMENT_UPDATE_REQUEST', updateEnrollment),
   takeLatest('@enrollment/ENROLLMENT_DEL_REQUEST', delEnrollment),
 ]);

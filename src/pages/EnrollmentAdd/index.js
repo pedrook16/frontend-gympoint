@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-import { addMonths, format } from 'date-fns';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMonths, format, parseISO } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import { Form } from '@rocketseat/unform';
 
@@ -14,17 +15,35 @@ import ButtonSave from '~/components/ButtonSave';
 import ReturnButton from '~/components/ReturnButton';
 import InputSelect from '~/components/InputSelect';
 
-import { addEnrollmentRequest } from '~/store/modules/Enrollment/actions';
+import {
+  addEnrollmentRequest,
+  updateEnrollmentRequest,
+} from '~/store/modules/Enrollment/actions';
 
 import { Content } from './styles';
 
-export default function RegisterStudents({ match }) {
+export default function EnrollmentAdd({ match }) {
   const [plans, setPlans] = useState([]);
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const dispach = useDispatch();
+  const enrollment = useSelector(state => state.enrollment.enrollment);
+
+  const { id } = match.params;
+
+  function planPriceAndDuration() {
+    setSelectedStudent(enrollment.student);
+    setSelectedPlan(enrollment.plan);
+    setStartDate(parseISO(enrollment.start_date));
+  }
+
+  useEffect(() => {
+    if (id) {
+      planPriceAndDuration();
+    }
+  }, [id, plans, students]); //eslint-disable-line
 
   useEffect(() => {
     async function loadStudents() {
@@ -57,11 +76,16 @@ export default function RegisterStudents({ match }) {
       studentId,
       planId,
       start_date: format(startDate, "yyyy-MM-dd'T'00:00:00XXX"),
+      id,
     };
-    dispach(addEnrollmentRequest(newData));
-    setSelectedStudent(null);
-    setSelectedPlan(null);
-    setStartDate(null);
+    if (!id) {
+      dispach(addEnrollmentRequest(newData));
+      setSelectedStudent(null);
+      setSelectedPlan(null);
+      setStartDate(null);
+    } else {
+      dispach(updateEnrollmentRequest(newData));
+    }
   }
 
   return (
@@ -77,7 +101,11 @@ export default function RegisterStudents({ match }) {
       <Box
         render={
           <Content>
-            <Form id="enrollment-submit" onSubmit={handleSubmit}>
+            <Form
+              id="enrollment-submit"
+              onSubmit={handleSubmit}
+              initialData={enrollment}
+            >
               <label>ALUNO</label>
               <InputSelect
                 name="studentId"
@@ -139,3 +167,19 @@ export default function RegisterStudents({ match }) {
     </>
   );
 }
+
+EnrollmentAdd.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
+
+EnrollmentAdd.defaultProps = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: null,
+    }),
+  }),
+};

@@ -1,3 +1,17 @@
+export function getByEnrollmentRequest(id) {
+  return {
+    type: '@enrollment/ENROLLMENT_GET_REQUEST',
+    payload: { id },
+  };
+}
+
+export function getByEnrollmentSuccess(data) {
+  return {
+    type: '@enrollment/ENROLLMENT_GET_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function addEnrollmentRequest({ studentId, planId, start_date }) {
   return {
     type: '@enrollment/ENROLLMENT_ADD_REQUEST',
@@ -5,10 +19,10 @@ export function addEnrollmentRequest({ studentId, planId, start_date }) {
   };
 }
 
-export function updateEnrollmentRequest(data, id) {
+export function updateEnrollmentRequest({ studentId, planId, start_date, id }) {
   return {
     type: '@enrollment/ENROLLMENT_UPDATE_REQUEST',
-    payload: { data, id },
+    payload: { studentId, planId, start_date, id },
   };
 }
 

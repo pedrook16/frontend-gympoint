@@ -6,12 +6,11 @@ import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdCheckCircle } from 'react-icons/md';
 
 import api from '~/services/api';
-import history from '~/services/history';
 
 import Box from '~/components/Box';
 import Button from '~/components/Button';
 
-import { deleteEnrollmentRequest } from '~/store/modules/Enrollment/actions';
+import { deleteEnrollmentRequest, getByEnrollmentRequest } from '~/store/modules/Enrollment/actions';
 
 import { Table } from './styles';
 
@@ -41,7 +40,8 @@ export default function Plan() {
   }, []);
 
   function handleUpdateEnrollment(id) {
-    history.push(`/enrollment/edit/${id}`);
+    console.tron.log(id)
+    dispach(getByEnrollmentRequest(id));
   }
 
   function handleDeleteEnrollment(id) {
