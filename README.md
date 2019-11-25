@@ -37,6 +37,7 @@ yarn start ou npm start
 ## Construido com
 
 - [ReactJs](https://pt-br.reactjs.org/)
+- [Redux](https://redux.js.org/)
 
 ## Autor
 
