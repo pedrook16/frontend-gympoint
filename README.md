@@ -5,9 +5,6 @@
   FrontEnd Gympoint
 </h3>
 <blockquote align="center">Sistema para Academia</blockquote>
-
-
-
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/rocketseat/bootcamp-gostack-desafio-02?color=%2304D361">
 
