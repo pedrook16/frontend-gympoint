@@ -80,9 +80,6 @@ export default function EnrollmentAdd({ match }) {
     };
     if (!id) {
       dispach(addEnrollmentRequest(newData));
-      setSelectedStudent(null);
-      setSelectedPlan(null);
-      setStartDate(null);
     } else {
       dispach(updateEnrollmentRequest(newData));
     }
