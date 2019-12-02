@@ -4,7 +4,7 @@
 <h3 align="center">
   FrontEnd Gympoint
 </h3>
-<blockquote align="center">Sistema para Academia</blockquote>
+<h6 align="center">Sistema para Academia</h6>
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/rocketseat/bootcamp-gostack-desafio-02?color=%2304D361">
 
@@ -19,23 +19,36 @@
 </p>
 
 
-Instalando as dependências.
+## Installing the dependencies
 
 ```
 yarn ou npm install
 ```
 
-Para iniciar o projeto:
+## To start the project
 
 ```
 yarn start ou npm start
 ```
 
-## Construido com
+## Features
 
-- [ReactJs](https://pt-br.reactjs.org/)
-- [Redux](https://redux.js.org/)
+This app features all the latest tools and practices in web development!
 
-## Autor
+- ⚛ **React** — A library to build user interfaces
+- ♻ **Redux with Redux Saga** — State management with middleware
+- 💅 **CSS** — styled-components
+- 🌸 **Reactotron** - Helps debugging process
+- 💖 **Lint** — ESlint/Prettier/Editor Config
 
-- **Pedro Henrique** - [Github](https://github.com/pedrook16)
+
+## Preview
+
+![Preview](.github/tela.gif)
+
+## :memo: License
+This project is under the MIT license. See the [LICENSE](https://github.com/douglasporto/meetapp-gostack/blob/master/LICENSE) for more information.
+
+---
+
+Made with ♥ by Pedro Henrique :wave: [Get in touch!](https://www.linkedin.com/in/pedro-henrique-08a366113/)
