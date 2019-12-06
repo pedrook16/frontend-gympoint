@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdSearch } from 'react-icons/md';
 
@@ -7,6 +7,7 @@ import api from '~/services/api';
 
 import Button from '~/components/Button';
 import Box from '~/components/Box';
+import Empty from '~/components/Empty';
 
 import {
   deleteStudentsRequest,
@@ -19,8 +20,6 @@ export default function Stutents() {
   const [students, setStudents] = useState([]);
   const [studentValue, setStudentValue] = useState('');
   const dispach = useDispatch();
-  const plan = useSelector(state => state.plan);
-  console.tron.log(plan);
 
   useEffect(() => {
     async function loadStudents() {
@@ -62,37 +61,41 @@ export default function Stutents() {
         </div>
       </header>
       <Box>
-        <Table>
-          <thead>
-            <tr>
-              <th>NOME</th>
-              <th>E-MAIL</th>
-              <th>IDADE</th>
-              <th>AÇÕES</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map(student => (
-              <tr key={student.id}>
-                <td>{student.name}</td>
-                <td>{student.email}</td>
-                <td>{student.age}</td>
-                <td>
-                  <MdEdit
-                    size={20}
-                    color="#4d85ee"
-                    onClick={() => handleRedirectEdit(student.id)}
-                  />
-                  <MdDelete
-                    size={20}
-                    color="#de3b3b"
-                    onClick={() => handleDel(student.id, student.name)}
-                  />
-                </td>
+        {students.length <= 0 ? (
+          <Empty>Sem aluno registradas</Empty>
+        ) : (
+          <Table>
+            <thead>
+              <tr>
+                <th>NOME</th>
+                <th>E-MAIL</th>
+                <th>IDADE</th>
+                <th>AÇÕES</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {students.map(student => (
+                <tr key={student.id}>
+                  <td>{student.name}</td>
+                  <td>{student.email}</td>
+                  <td>{student.age}</td>
+                  <td>
+                    <MdEdit
+                      size={20}
+                      color="#4d85ee"
+                      onClick={() => handleRedirectEdit(student.id)}
+                    />
+                    <MdDelete
+                      size={20}
+                      color="#de3b3b"
+                      onClick={() => handleDel(student.id, student.name)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Box>
     </>
   );

@@ -6,6 +6,7 @@ import api from '~/services/api';
 
 import Box from '~/components/Box';
 import ModalHelp from '~/components/ModalHelp';
+import Empty from '~/components/Empty';
 
 import { Table, Container } from './styles';
 
@@ -45,26 +46,30 @@ export default function Plan() {
         <h1>Pedidos de auxílio</h1>
       </div>
       <Box>
-        <Table>
-          <thead>
-            <tr>
-              <th>ALUNO</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {helps.map(help => (
+        {helps.length <= 0 ? (
+          <Empty>Sem pedidos de auxílio </Empty>
+        ) : (
+          <Table>
+            <thead>
               <tr>
-                <td>{help.student.name}</td>
-                <td>
-                  <button type="button" onClick={() => setRespondItem(help)}>
-                    responder
-                  </button>
-                </td>
+                <th>ALUNO</th>
+                <th />
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {helps.map(help => (
+                <tr>
+                  <td>{help.student.name}</td>
+                  <td>
+                    <button type="button" onClick={() => setRespondItem(help)}>
+                      responder
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Box>
 
       <ModalHelp

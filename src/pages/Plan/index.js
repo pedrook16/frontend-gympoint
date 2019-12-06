@@ -13,6 +13,7 @@ import {
 
 import Box from '~/components/Box';
 import Button from '~/components/Button';
+import Empty from '~/components/Empty';
 
 import { Table } from './styles';
 
@@ -54,37 +55,41 @@ export default function Plan() {
         </div>
       </header>
       <Box>
-        <Table>
-          <thead>
-            <tr>
-              <th>TÍTULO</th>
-              <th>DURAÇÃO</th>
-              <th>VALOR p/ MÊS</th>
-              <th>AÇÕES</th>
-            </tr>
-          </thead>
-          <tbody>
-            {plans.map(plan => (
-              <tr key={plan.id}>
-                <td>{plan.title}</td>
-                <td>{plan.duration} mês</td>
-                <td>{plan.priceFormatted}</td>
-                <td>
-                  <MdEdit
-                    size={20}
-                    color="#4d85ee"
-                    onClick={() => handleEditPlan(plan.id)}
-                  />
-                  <MdDelete
-                    size={20}
-                    color="#de3b3b"
-                    onClick={() => handleDeletePlan(plan.id, plan.title)}
-                  />
-                </td>
+        {plans.length <= 0 ? (
+          <Empty>Sem planos registradas</Empty>
+        ) : (
+          <Table>
+            <thead>
+              <tr>
+                <th>TÍTULO</th>
+                <th>DURAÇÃO</th>
+                <th>VALOR p/ MÊS</th>
+                <th>AÇÕES</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {plans.map(plan => (
+                <tr key={plan.id}>
+                  <td>{plan.title}</td>
+                  <td>{plan.duration} mês</td>
+                  <td>{plan.priceFormatted}</td>
+                  <td>
+                    <MdEdit
+                      size={20}
+                      color="#4d85ee"
+                      onClick={() => handleEditPlan(plan.id)}
+                    />
+                    <MdDelete
+                      size={20}
+                      color="#de3b3b"
+                      onClick={() => handleDeletePlan(plan.id, plan.title)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Box>
     </>
   );
