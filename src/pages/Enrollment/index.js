@@ -9,8 +9,12 @@ import api from '~/services/api';
 
 import Box from '~/components/Box';
 import Button from '~/components/Button';
+import Empty from '~/components/Empty';
 
-import { deleteEnrollmentRequest, getByEnrollmentRequest } from '~/store/modules/Enrollment/actions';
+import {
+  deleteEnrollmentRequest,
+  getByEnrollmentRequest,
+} from '~/store/modules/Enrollment/actions';
 
 import { Table } from './styles';
 
@@ -40,7 +44,7 @@ export default function Plan() {
   }, []);
 
   function handleUpdateEnrollment(id) {
-    console.tron.log(id)
+    console.tron.log(id);
     dispach(getByEnrollmentRequest(id));
   }
 
@@ -60,8 +64,10 @@ export default function Plan() {
           </Link>
         </div>
       </header>
-      <Box
-        render={
+      <Box>
+        {enrollments.length <= 0 ? (
+          <Empty>Sem matrículas registradas</Empty>
+        ) : (
           <Table>
             <thead>
               <tr>
@@ -102,8 +108,8 @@ export default function Plan() {
               ))}
             </tbody>
           </Table>
-        }
-      />
+        )}
+      </Box>
     </>
   );
 }

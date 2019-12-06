@@ -53,41 +53,39 @@ export default function Plan() {
           </Link>
         </div>
       </header>
-      <Box
-        render={
-          <Table>
-            <thead>
-              <tr>
-                <th>TÍTULO</th>
-                <th>DURAÇÃO</th>
-                <th>VALOR p/ MÊS</th>
-                <th>AÇÕES</th>
+      <Box>
+        <Table>
+          <thead>
+            <tr>
+              <th>TÍTULO</th>
+              <th>DURAÇÃO</th>
+              <th>VALOR p/ MÊS</th>
+              <th>AÇÕES</th>
+            </tr>
+          </thead>
+          <tbody>
+            {plans.map(plan => (
+              <tr key={plan.id}>
+                <td>{plan.title}</td>
+                <td>{plan.duration} mês</td>
+                <td>{plan.priceFormatted}</td>
+                <td>
+                  <MdEdit
+                    size={20}
+                    color="#4d85ee"
+                    onClick={() => handleEditPlan(plan.id)}
+                  />
+                  <MdDelete
+                    size={20}
+                    color="#de3b3b"
+                    onClick={() => handleDeletePlan(plan.id, plan.title)}
+                  />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {plans.map(plan => (
-                <tr key={plan.id}>
-                  <td>{plan.title}</td>
-                  <td>{plan.duration} mês</td>
-                  <td>{plan.priceFormatted}</td>
-                  <td>
-                    <MdEdit
-                      size={20}
-                      color="#4d85ee"
-                      onClick={() => handleEditPlan(plan.id)}
-                    />
-                    <MdDelete
-                      size={20}
-                      color="#de3b3b"
-                      onClick={() => handleDeletePlan(plan.id, plan.title)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        }
-      />
+            ))}
+          </tbody>
+        </Table>
+      </Box>
     </>
   );
 }

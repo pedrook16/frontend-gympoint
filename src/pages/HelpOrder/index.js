@@ -44,30 +44,28 @@ export default function Plan() {
       <div>
         <h1>Pedidos de auxílio</h1>
       </div>
-      <Box
-        render={
-          <Table>
-            <thead>
+      <Box>
+        <Table>
+          <thead>
+            <tr>
+              <th>ALUNO</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {helps.map(help => (
               <tr>
-                <th>ALUNO</th>
-                <th />
+                <td>{help.student.name}</td>
+                <td>
+                  <button type="button" onClick={() => setRespondItem(help)}>
+                    responder
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {helps.map(help => (
-                <tr>
-                  <td>{help.student.name}</td>
-                  <td>
-                    <button type="button" onClick={() => setRespondItem(help)}>
-                      responder
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        }
-      />
+            ))}
+          </tbody>
+        </Table>
+      </Box>
 
       <ModalHelp
         visible={!!respondItem.id}

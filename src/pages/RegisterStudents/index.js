@@ -54,38 +54,36 @@ export default function RegisterStudents({ match }) {
           <ButtonSave formSubmit="student-form" />
         </div>
       </header>
-      <Box
-        render={
-          <Content>
-            <Form
-              id="student-form"
-              schema={schema}
-              onSubmit={handleSubmit}
-              initialData={id ? student : ''}
-            >
-              <label>NOME COMPLETO</label>
-              <Input name="name" type="text" placeholder="Fulano dos Santos" />
-              <label>ENDEREÇO DE E-MAIL</label>
-              <Input name="email" type="text" placeholder="email@gmail.com" />
+      <Box>
+        <Content>
+          <Form
+            id="student-form"
+            schema={schema}
+            onSubmit={handleSubmit}
+            initialData={id ? student : ''}
+          >
+            <label>NOME COMPLETO</label>
+            <Input name="name" type="text" placeholder="Fulano dos Santos" />
+            <label>ENDEREÇO DE E-MAIL</label>
+            <Input name="email" type="text" placeholder="email@gmail.com" />
 
+            <div>
               <div>
-                <div>
-                  <label>IDADE</label>
-                  <Input name="age" type="type" />
-                </div>
-                <div>
-                  <label>PESO (em kg)</label>
-                  <Input name="weight" type="type" />
-                </div>
-                <div>
-                  <label>ALTURA</label>
-                  <Input name="height" type="type" />
-                </div>
+                <label>IDADE</label>
+                <Input name="age" type="type" />
               </div>
-            </Form>
-          </Content>
-        }
-      />
+              <div>
+                <label>PESO (em kg)</label>
+                <Input name="weight" type="type" />
+              </div>
+              <div>
+                <label>ALTURA</label>
+                <Input name="height" type="type" />
+              </div>
+            </div>
+          </Form>
+        </Content>
+      </Box>
     </>
   );
 }

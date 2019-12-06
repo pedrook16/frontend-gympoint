@@ -75,52 +75,50 @@ export default function RegisterStudents({ match }) {
           <ButtonSave formSubmit="plan-submit" />
         </div>
       </header>
-      <Box
-        render={
-          <Content>
-            <Form
-              id="plan-submit"
-              schema={schema}
-              onSubmit={handleSubmit}
-              initialData={id ? plan : ''}
-            >
-              <label>TÍTULO DO PLANO</label>
-              <Input name="title" type="text" placeholder="Gold" />
+      <Box>
+        <Content>
+          <Form
+            id="plan-submit"
+            schema={schema}
+            onSubmit={handleSubmit}
+            initialData={id ? plan : ''}
+          >
+            <label>TÍTULO DO PLANO</label>
+            <Input name="title" type="text" placeholder="Gold" />
 
+            <div>
               <div>
-                <div>
-                  <label>DURAÇÃO (em meses)</label>
-                  <Input
-                    name="duration"
-                    type="text"
-                    placeholder="12"
-                    onChange={e => setDuration(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>PREÇO MENSAL ( somente números )</label>
-                  <Input
-                    name="price"
-                    type="text"
-                    placeholder="99.90"
-                    onChange={e => setPrice(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>PREÇO TOTAL</label>
-                  <Input
-                    name="total"
-                    className="desabled"
-                    type="text"
-                    disabled
-                    value={totalFormatted}
-                  />
-                </div>
+                <label>DURAÇÃO (em meses)</label>
+                <Input
+                  name="duration"
+                  type="text"
+                  placeholder="12"
+                  onChange={e => setDuration(e.target.value)}
+                />
               </div>
-            </Form>
-          </Content>
-        }
-      />
+              <div>
+                <label>PREÇO MENSAL ( somente números )</label>
+                <Input
+                  name="price"
+                  type="text"
+                  placeholder="99.90"
+                  onChange={e => setPrice(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>PREÇO TOTAL</label>
+                <Input
+                  name="total"
+                  className="desabled"
+                  type="text"
+                  disabled
+                  value={totalFormatted}
+                />
+              </div>
+            </div>
+          </Form>
+        </Content>
+      </Box>
     </>
   );
 }

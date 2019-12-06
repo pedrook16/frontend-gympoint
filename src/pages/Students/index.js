@@ -61,41 +61,39 @@ export default function Stutents() {
           </Search>
         </div>
       </header>
-      <Box
-        render={
-          <Table>
-            <thead>
-              <tr>
-                <th>NOME</th>
-                <th>E-MAIL</th>
-                <th>IDADE</th>
-                <th>AÇÕES</th>
+      <Box>
+        <Table>
+          <thead>
+            <tr>
+              <th>NOME</th>
+              <th>E-MAIL</th>
+              <th>IDADE</th>
+              <th>AÇÕES</th>
+            </tr>
+          </thead>
+          <tbody>
+            {students.map(student => (
+              <tr key={student.id}>
+                <td>{student.name}</td>
+                <td>{student.email}</td>
+                <td>{student.age}</td>
+                <td>
+                  <MdEdit
+                    size={20}
+                    color="#4d85ee"
+                    onClick={() => handleRedirectEdit(student.id)}
+                  />
+                  <MdDelete
+                    size={20}
+                    color="#de3b3b"
+                    onClick={() => handleDel(student.id, student.name)}
+                  />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {students.map(student => (
-                <tr key={student.id}>
-                  <td>{student.name}</td>
-                  <td>{student.email}</td>
-                  <td>{student.age}</td>
-                  <td>
-                    <MdEdit
-                      size={20}
-                      color="#4d85ee"
-                      onClick={() => handleRedirectEdit(student.id)}
-                    />
-                    <MdDelete
-                      size={20}
-                      color="#de3b3b"
-                      onClick={() => handleDel(student.id, student.name)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        }
-      />
+            ))}
+          </tbody>
+        </Table>
+      </Box>
     </>
   );
 }

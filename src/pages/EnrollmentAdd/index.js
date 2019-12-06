@@ -95,72 +95,70 @@ export default function EnrollmentAdd({ match }) {
           <ButtonSave formSubmit="enrollment-submit" />
         </div>
       </header>
-      <Box
-        render={
-          <Content>
-            <Form
-              id="enrollment-submit"
-              onSubmit={handleSubmit}
-              initialData={enrollment}
-            >
-              <label>ALUNO</label>
-              <InputSelect
-                name="studentId"
-                placeholder="Buscar aluno"
-                options={students}
-                getOptionLabel={item => item.name}
-                classNamePrefix="react-select"
-                onChange={value => setSelectedStudent(value)}
-                value={selectedStudent}
-              />
+      <Box>
+        <Content>
+          <Form
+            id="enrollment-submit"
+            onSubmit={handleSubmit}
+            initialData={enrollment}
+          >
+            <label>ALUNO</label>
+            <InputSelect
+              name="studentId"
+              placeholder="Buscar aluno"
+              options={students}
+              getOptionLabel={item => item.name}
+              classNamePrefix="react-select"
+              onChange={value => setSelectedStudent(value)}
+              value={selectedStudent}
+            />
 
-              <section>
-                <article>
-                  <label>PLANO</label>
-                  <InputSelect
-                    name="planId"
-                    options={plans}
-                    classNamePrefix="react-select"
-                    onChange={value => setSelectedPlan(value)}
-                    value={selectedPlan}
-                    placeholder="Selecione o plano"
-                    getOptionLabel={item => item.title}
-                  />
-                </article>
-                <article>
-                  <label>DATA DE INÍCIO</label>
-                  <DatePicker
-                    selected={startDate}
-                    dateFormat="dd/MM/yyyy"
-                    onChange={value => setStartDate(value)}
-                    placeholderText="Selecione data da matrícula"
-                  />
-                </article>
-                <article>
-                  <label>DATA DE TÉRMINO</label>
-                  <input
-                    value={endDate}
-                    className="desabled"
-                    type="text"
-                    disabled
-                    name="end_date"
-                  />
-                </article>
-                <article>
-                  <label>VALOR FINAL</label>
-                  <input
-                    value={finalValue}
-                    className="desabled"
-                    type="text"
-                    disabled
-                    name="data_termino"
-                  />
-                </article>
-              </section>
-            </Form>
-          </Content>
-        }
-      />
+            <section>
+              <article>
+                <label>PLANO</label>
+                <InputSelect
+                  name="planId"
+                  options={plans}
+                  classNamePrefix="react-select"
+                  onChange={value => setSelectedPlan(value)}
+                  value={selectedPlan}
+                  placeholder="Selecione o plano"
+                  getOptionLabel={item => item.title}
+                />
+              </article>
+              <article>
+                <label>DATA DE INÍCIO</label>
+                <DatePicker
+                  selected={startDate}
+                  dateFormat="dd/MM/yyyy"
+                  onChange={value => setStartDate(value)}
+                  placeholderText="Selecione data da matrícula"
+                />
+              </article>
+              <article>
+                <label>DATA DE TÉRMINO</label>
+                <input
+                  value={endDate}
+                  className="desabled"
+                  type="text"
+                  disabled
+                  name="end_date"
+                />
+              </article>
+              <article>
+                <label>VALOR FINAL</label>
+                <input
+                  value={finalValue}
+                  className="desabled"
+                  type="text"
+                  disabled
+                  name="data_termino"
+                />
+              </article>
+            </section>
+          </Form>
+        </Content>
+      </Box>
     </>
   );
 }
