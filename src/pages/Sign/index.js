@@ -25,13 +25,18 @@ export default function Sign() {
       <img src={logo} alt="logo" />
       <Form schema={schema} onSubmit={handleSubmit}>
         <label>SEU E-MAIL</label>
-        <Input type="email" name="email" placeholder="exemplo@email.com" />
+        <Input
+          type="email"
+          name="email"
+          placeholder="exemplo@email.com"
+          autoFocus
+        />
 
         <label>SUA SENHA</label>
         <Input type="password" name="password" placeholder="*********" />
 
         <button type="submit">
-          {loading ? 'Carregando...' : 'Entrar no sistema'}
+          {loading ? 'Carregando ...' : 'Entrar no sistema'}
         </button>
       </Form>
     </>

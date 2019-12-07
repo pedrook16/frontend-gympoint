@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Lottie from 'react-lottie';
 import animated from '~/assets/Animated/empty.json';
 
@@ -8,9 +9,6 @@ const defaultOptions = {
   loop: true,
   autoplay: true,
   animationData: animated,
-  rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice',
-  },
 };
 
 export default function Empty({ children }) {
@@ -21,3 +19,7 @@ export default function Empty({ children }) {
     </Container>
   );
 }
+
+Empty.propTypes = {
+  children: PropTypes.string.isRequired,
+};

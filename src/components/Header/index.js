@@ -8,7 +8,7 @@ import { Container, Content, Logout, Navigate } from './styles';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const userName = useSelector(state => state.user.user);
+  const userName = useSelector(state => state.auth.user);
 
   function handleSignOut() {
     dispatch(signOut());
