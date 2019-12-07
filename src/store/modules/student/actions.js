@@ -38,3 +38,10 @@ export function deleteStudentsRequest(id, name) {
     payload: { id, name },
   };
 }
+
+export function deleteStudentsSuccess(del) {
+  return {
+    type: '@student/STUDENT_DELETE_SUCCESS',
+    payload: { del },
+  };
+}

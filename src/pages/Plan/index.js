@@ -55,7 +55,7 @@ export default function Plan() {
         </div>
       </header>
       <Box>
-        {plans.length <= 0 ? (
+        {!plans.length ? (
           <Empty>Sem planos registradas</Empty>
         ) : (
           <Table>

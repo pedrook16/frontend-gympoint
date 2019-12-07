@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdSearch } from 'react-icons/md';
 
@@ -20,6 +20,7 @@ export default function Stutents() {
   const [students, setStudents] = useState([]);
   const [studentValue, setStudentValue] = useState('');
   const dispach = useDispatch();
+  const delSuccess = useSelector(state => state.student.del);
 
   useEffect(() => {
     async function loadStudents() {
@@ -29,7 +30,7 @@ export default function Stutents() {
       setStudents(response.data);
     }
     loadStudents();
-  }, [studentValue]);
+  }, [studentValue, delSuccess]);
 
   function handleRedirectEdit(id) {
     dispach(getIdStudentsRequest(id));
@@ -61,7 +62,7 @@ export default function Stutents() {
         </div>
       </header>
       <Box>
-        {students.length <= 0 ? (
+        {!students.length ? (
           <Empty>Sem aluno registradas</Empty>
         ) : (
           <Table>

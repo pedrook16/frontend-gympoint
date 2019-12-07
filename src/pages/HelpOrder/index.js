@@ -46,7 +46,7 @@ export default function Plan() {
         <h1>Pedidos de auxílio</h1>
       </div>
       <Box>
-        {helps.length <= 0 ? (
+        {!helps.length ? (
           <Empty>Sem pedidos de auxílio </Empty>
         ) : (
           <Table>

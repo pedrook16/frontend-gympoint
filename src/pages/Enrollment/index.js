@@ -65,7 +65,7 @@ export default function Plan() {
         </div>
       </header>
       <Box>
-        {enrollments.length <= 0 ? (
+        {!enrollments.length ? (
           <Empty>Sem matrículas registradas</Empty>
         ) : (
           <Table>
