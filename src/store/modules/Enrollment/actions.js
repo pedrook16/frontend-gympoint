@@ -32,3 +32,10 @@ export function deleteEnrollmentRequest(id) {
     payload: { id },
   };
 }
+
+export function deleteEnrollmentSuccess(del) {
+  return {
+    type: '@enrollment/ENROLLMENT_DEL_SUCCESS',
+    payload: { del },
+  };
+}

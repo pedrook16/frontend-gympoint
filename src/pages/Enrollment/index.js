@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,7 @@ import { Table } from './styles';
 export default function Plan() {
   const [enrollments, setEnrollments] = useState([]);
   const dispach = useDispatch();
+  const delSuccess = useSelector(state => state.enrollment.del);
 
   useEffect(() => {
     async function loadEnrollments() {
@@ -41,7 +42,7 @@ export default function Plan() {
       setEnrollments(data);
     }
     loadEnrollments();
-  }, []);
+  }, [delSuccess]);
 
   function handleUpdateEnrollment(id) {
     console.tron.log(id);

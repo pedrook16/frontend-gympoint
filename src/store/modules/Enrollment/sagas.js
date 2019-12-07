@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { getByEnrollmentSuccess } from './actions';
+import { getByEnrollmentSuccess, deleteEnrollmentSuccess } from './actions';
 
 export function* getByIdEnrollment({ payload }) {
   const { id } = payload;
@@ -54,6 +54,7 @@ export function* delEnrollment({ payload }) {
 
     yield call(api.delete, `enrollment/${id}`);
     toast.success(`Matrícula delatada com sucesso.`);
+    yield put(deleteEnrollmentSuccess({ del: true }));
   } catch (err) {
     toast.error(err.response.data.error);
   }

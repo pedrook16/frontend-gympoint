@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { getByPlanSuccess } from './actions';
+import { getByPlanSuccess, deletePlanSuccess } from './actions';
 
 export function* getIdPlan({ payload }) {
   const { id } = payload;
@@ -51,6 +51,7 @@ export function* delPlan({ payload }) {
 
     yield call(api.delete, `plans/${id}`);
     toast.success(`Plano ${title} apagado com sucesso.`);
+    yield put(deletePlanSuccess({ del: true }));
   } catch (err) {
     toast.error(err.response.data.error);
   }

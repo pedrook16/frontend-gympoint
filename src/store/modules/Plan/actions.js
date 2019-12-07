@@ -38,3 +38,10 @@ export function deletePlanRequest(id, title) {
     payload: { id, title },
   };
 }
+
+export function deletePlanSuccess(del) {
+  return {
+    type: '@plan/PLAN_DEL_SUCCESS',
+    payload: { del },
+  };
+}

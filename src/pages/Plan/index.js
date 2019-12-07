@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
@@ -20,6 +20,7 @@ import { Table } from './styles';
 export default function Plan() {
   const [plans, setPlans] = useState([]);
   const dispach = useDispatch();
+  const delSuccess = useSelector(state => state.plan.del);
 
   useEffect(() => {
     async function loadPlans() {
@@ -32,7 +33,7 @@ export default function Plan() {
       setPlans(data);
     }
     loadPlans();
-  }, []);
+  }, [delSuccess]);
 
   function handleEditPlan(id) {
     dispach(getByPlanRequest(id));
